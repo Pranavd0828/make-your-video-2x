@@ -38,7 +38,8 @@ function App() {
       setStatus("Ready");
     } catch (e) {
       console.error(e);
-      setStatus("Failed to load FFmpeg: " + e.message);
+      const errorMessage = e instanceof Error ? e.message : JSON.stringify(e);
+      setStatus(`Failed to load FFmpeg: ${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
