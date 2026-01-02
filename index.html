@@ -6,7 +6,14 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Velocity - Video Speedup</title>
-  <script src="coi-serviceworker.js"></script>
+  <script src="coi-serviceworker.js?v=2"></script>
+  <script>
+    // Force reload if service worker is not active
+    if (!window.crossOriginIsolated && !sessionStorage.getItem('reloaded')) {
+      sessionStorage.setItem('reloaded', 'true');
+      window.location.reload();
+    }
+  </script>
 </head>
 
 <body>

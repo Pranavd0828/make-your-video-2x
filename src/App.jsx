@@ -134,7 +134,7 @@ function App() {
   return (
     <div className="container">
       <div className="card">
-        <h1>Video Speedup Tool</h1>
+        <h1>Video Speedup Tool <span style={{ fontSize: '0.4em', opacity: 0.5, verticalAlign: 'middle' }}>v1.1 (Cache Bust)</span></h1>
 
         {!loaded ? (
           <div className="loading">
