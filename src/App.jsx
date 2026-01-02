@@ -29,9 +29,10 @@ function App() {
     });
 
     try {
+      const baseURL = import.meta.env.BASE_URL;
       await ffmpeg.load({
-        coreURL: await toBlobURL("/ffmpeg-core.js", "text/javascript"),
-        wasmURL: await toBlobURL("/ffmpeg-core.wasm", "application/wasm"),
+        coreURL: await toBlobURL(`${baseURL}ffmpeg-core.js`, "text/javascript"),
+        wasmURL: await toBlobURL(`${baseURL}ffmpeg-core.wasm`, "application/wasm"),
       });
       setLoaded(true);
       setStatus("Ready");
