@@ -139,8 +139,26 @@ function App() {
         {!loaded ? (
           <div className="loading">
             <div className="spinner"></div>
-            <p>Loading FFmpeg Core...</p>
-            <div className="status-text">{status}</div>
+            <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>Initializing Velocity Engine...</p>
+
+            {!window.crossOriginIsolated && (
+              <div style={{ background: 'rgba(255,50,50,0.2)', padding: '15px', borderRadius: '8px', margin: '20px 0', border: '1px solid #ff4444', textAlign: 'left' }}>
+                <h3 style={{ marginTop: 0 }}>⚠️ Critical Error</h3>
+                <p>Your browser is not cross-origin isolated. FFmpeg requires SharedArrayBuffer.</p>
+                <p>1. Please reload the page (the service worker might need a second reload).</p>
+                <p>2. Ensure you are using a modern browser (Chrome/Edge/Firefox).</p>
+              </div>
+            )}
+
+            <div className="status-text" style={{ fontFamily: 'monospace', whiteSpace: 'pre-wrap', textAlign: 'left', background: 'rgba(0,0,0,0.5)', padding: '10px', borderRadius: '4px', maxWidth: '100%' }}>
+              {status}
+            </div>
+
+            {status.includes("Error") || status.includes("Failed") ? (
+              <button className="process-btn" onClick={() => window.location.reload()} style={{ marginTop: '20px' }}>
+                Reload Page
+              </button>
+            ) : null}
           </div>
         ) : (
           <div className="content">
