@@ -6,8 +6,15 @@
   <link rel="icon" type="image/svg+xml" href="/make-your-video-2x/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Velocity - Video Speedup</title>
-  <script src="coi-serviceworker.js"></script>
-  <script type="module" crossorigin src="/make-your-video-2x/assets/index-CdH3vKgx.js"></script>
+  <script src="coi-serviceworker.js?v=2"></script>
+  <script>
+    // Force reload if service worker is not active
+    if (!window.crossOriginIsolated && !sessionStorage.getItem('reloaded')) {
+      sessionStorage.setItem('reloaded', 'true');
+      window.location.reload();
+    }
+  </script>
+  <script type="module" crossorigin src="/make-your-video-2x/assets/index-CyflVahC.js"></script>
   <link rel="stylesheet" crossorigin href="/make-your-video-2x/assets/index-z5aHtMPR.css">
 </head>
 
