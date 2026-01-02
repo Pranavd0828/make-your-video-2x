@@ -30,16 +30,30 @@ function App() {
 
     try {
       const baseURL = import.meta.env.BASE_URL;
+      setStatus(`Initializing. Base: ${baseURL}`);
+
+      setStatus("Fetching core...");
+      const coreURL = await toBlobURL(`${baseURL}ffmpeg-core.js`, "text/javascript");
+
+      setStatus("Fetching wasm...");
+      const wasmURL = await toBlobURL(`${baseURL}ffmpeg-core.wasm`, "application/wasm");
+
+      setStatus("Loading FFmpeg...");
       await ffmpeg.load({
-        coreURL: await toBlobURL(`${baseURL}ffmpeg-core.js`, "text/javascript"),
-        wasmURL: await toBlobURL(`${baseURL}ffmpeg-core.wasm`, "application/wasm"),
+        coreURL: coreURL,
+        wasmURL: wasmURL,
       });
+
       setLoaded(true);
       setStatus("Ready");
     } catch (e) {
       console.error(e);
-      const errorMessage = e instanceof Error ? e.message : JSON.stringify(e);
-      setStatus(`Failed to load FFmpeg: ${errorMessage}`);
+      let msg = "Unknown error";
+      if (typeof e === 'string') msg = e;
+      else if (e instanceof Error) msg = e.message;
+      else if (typeof e === 'object') msg = JSON.stringify(e, Object.getOwnPropertyNames(e));
+
+      setStatus(`Error: ${msg}`);
     } finally {
       setIsLoading(false);
     }
