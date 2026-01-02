@@ -130,6 +130,12 @@ function App() {
         ) : (
           <div className="content">
             <div className="upload-section">
+              {!window.crossOriginIsolated && (
+                <div style={{ background: 'rgba(255,0,0,0.2)', padding: '10px', borderRadius: '8px', marginBottom: '10px', border: '1px solid red' }}>
+                  <strong>Warning:</strong> SharedArrayBuffer is not available.
+                  <br /><small>The service worker may not be active. Reload might help.</small>
+                </div>
+              )}
               <input
                 type="file"
                 onChange={handleUpload}
